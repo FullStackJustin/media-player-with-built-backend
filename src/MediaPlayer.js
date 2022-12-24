@@ -39,6 +39,7 @@ function MediaPlayer() {
     }
 
     function handleLogin(event) {
+        document.querySelector('#regForm').addEventListener('submit', event =>{
         event.preventDefault();
         const formData = new FormData(event.target);
         // Send a request to the backend to authenticate the user
@@ -62,26 +63,32 @@ function MediaPlayer() {
                   // Handle error if login is unsuccessful
                 }
               });
+            });
           
           
     }
 
     function handleRegistration(event) {
-        event.preventDefault();
-        const formData = new FormData(event.target);
-        // Send a request to the backend to register the user
-        // and set the user in the component's state if successful
-        fetch('/login', {
-            method: 'POST',
-            body: formData
-          })
+        document.querySelector('#regForm').addEventListener('submit', event =>{
+            event.preventDefault();
+            const formData = new FormData(event.target);
+            // Send a request to the backend to register the user
+            // and set the user in the component's state if successful
+            fetch('http://localhost:3002/register', {
+                method: 'POST',
+                body: formData,
+                headers:{
+                    "Access-Control-Allow-Origin":'*'
+                }
+            })
             .then(response => response.json())
             .then(data => {
               if (data.success) {
-                // Set the user in the component's state
-                setUser(data.user);
-              }
+                  // Set the user in the component's state
+                  setUser(data.user);
+                }
             });
+        })
           
     }
 
@@ -104,19 +111,19 @@ function MediaPlayer() {
                 </div>
             ) : (
                 <div>
-                    <form onSubmit={handleLogin}>
+                    <form onSubmit={handleLogin} id="loginForm">
                         <label htmlFor="username">Username:</label>
                         <input type="text" id="username" />
                         <label htmlFor="password">Password:</label>
                         <input type="password" id="password" />
                         <button type="submit">Login</button>
                     </form>
-                    <form onSubmit={handleRegistration}>
+                    <form id="regForm">
                         <label htmlFor="username1">Username:</label>
                         <input type="text" id="username1" />
                         <label htmlFor="password1">Password:</label>
                         <input type="password" id="password1" />
-                        <button type="submit">Sign Up</button>
+                        <button onClick={handleRegistration}>Sign Up</button>
                     </form>
                 </div>
             )}

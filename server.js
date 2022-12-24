@@ -8,7 +8,8 @@ app.use(bodyParser.json());
 const users = [];
 
 app.post('/login', (req, res) => {
-  const { username, password } = req.body;
+  const password = req.body.get('password');
+  const username = req.body.get('username');
   // Find the user with the matching username and password
   const user = users.find(
     u => u.username === username && u.password === password
@@ -23,13 +24,15 @@ app.post('/login', (req, res) => {
 });
 
 app.post('/register', (req, res) => {
-  const { username, password } = req.body;
+
+  const username1 = req.body.get('username1');
+  const password1 = req.body.get('password1');
   // Check if the username is already taken
-  if (users.find(u => u.username === username)) {
+  if (users.find(u => u.username1 === username1)) {
     res.status(400).json({ success: false, message: 'Username is already taken' });
   } else {
     // Add the new user to the list of users
-    const user = { username, password };
+    const user = { username1, password1 };
     users.push(user);
     res.json({ success: true, user });
   }
