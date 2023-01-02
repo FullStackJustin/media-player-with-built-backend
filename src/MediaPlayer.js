@@ -94,7 +94,7 @@ function MediaPlayer() {
 
     return (
         <div>
-            {user ? (
+            {/* {user ? ( */}
                 <div>
                     <button onClick={handlePreviousTrack}>Previous Track</button>
                     {isPlaying ? (
@@ -126,7 +126,7 @@ function MediaPlayer() {
                         <button onClick={handleRegistration}>Sign Up</button>
                     </form>
                 </div>
-            )}
+            {/* )} */}
         </div>
     );
 }
